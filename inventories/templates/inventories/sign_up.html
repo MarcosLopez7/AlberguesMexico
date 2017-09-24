@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block title %}Sign up{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <h2 class="col-xs-12 text-xs-center">Registro</h2>
+
+        <div class="col-xs-12 col-md-8 offset-md-2 text-danger m-t-2">
+            {% if message %}
+                <h5>{{ message }}</h5>
+            {% endif %}
+        </div>
+
+        <div class="col-xs-12 col-md-8 offset-md-2">
+            <form method="post" action="" class="m-t-2">
+                {% csrf_token %}
+
+                {% for field in form %}
+                    <div class="form-group">
+                        {% if field.errors %}
+                            {{ field.errors }}
+                        {% endif %}
+                        {{ field }}
+                    </div>
+                {% endfor %}
+
+                <button type="submit" class="btn btn-primary">Siguiente Paso</button>
+            </form>
+        </div>
+    </div>
+
+
+{% endblock %}

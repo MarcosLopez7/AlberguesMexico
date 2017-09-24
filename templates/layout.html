@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.3/css/bootstrap.min.css"
           integrity="sha384-MIwDKRSSImVFAZCVLtU0LMDdON6KVCrZHyVQQj6e8wIEJkW4tvwqXrbMIya1vriY" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,7 +23,7 @@
                     <a class="nav-link" href="{% url 'inventories:index' %}"><strong>Inicio</strong></a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="#"><strong>Registrarse</strong></a>
+                    <a class="nav-link" href="{% url 'inventories:sign-up' %}"><strong>Registrarse</strong></a>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="#"><strong>Iniciar Sesión</strong></a>

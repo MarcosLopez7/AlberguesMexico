@@ -5,5 +5,18 @@
 
 {% block content %}
 
-    <h1>Ayuda a albergues</h1>
+    <h1 class="text-xs-center">Ayuda México</h1>
+
+    {% for refuge_list in refuges %}
+        <div class="col-xs-12 col-md-4">
+            <h2>{{ refuge_list.refuge.name }}</h2>
+            <p>{{ refuge_list.refuge.city }}, {{ refuge_list.refuge.state }}</p>
+            <h4>Necesidades</h4>
+            <p>{{ refuge_list.refuge.post.description }}</p>
+            <h4>Lista de necesidades</h4>
+            {% for need in refuge_list.needs %}
+                {{ need.product }}, cantidad: {{ need.quantity }}<br>
+            {% endfor %}
+        </div>
+    {% endfor %}
 {% endblock %}

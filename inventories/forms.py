@@ -34,9 +34,20 @@ class UserCreateForm(forms.ModelForm):
         return email
 
 
+class UserForm(forms.ModelForm):
+    email = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Email'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Contraseña'}))
+
+    class Meta:
+        model = User
+        fields = ['email', 'password']
+
+
 class NeedForm(forms.ModelForm):
-    product = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'producto'}))
-    quantity = forms.IntegerField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Cantidad'}))
+    product = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'producto',
+                                                            'ng-model': 'need.product'}))
+    quantity = forms.IntegerField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Cantidad',
+                                                                'ng-model': 'need.quantity'}))
 
     class Meta:
         model = Need
@@ -44,8 +55,12 @@ class NeedForm(forms.ModelForm):
 
 
 class PostForm(forms.ModelForm):
-    description = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': '¿Que se necesita?...'}))
-    enable_beds = forms.IntegerField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Camas Disponible'}))
+    description = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control',
+                                                               'placeholder': '¿Que se necesita?...',
+                                                               'ng-model': 'refuge.post.description'}))
+    enable_beds = forms.IntegerField(widget=forms.TextInput(attrs={'class': 'form-control',
+                                                                   'placeholder': 'Camas Disponible',
+                                                                   'ng-model': 'refuge.post.enable_beds'}))
 
     class Meta:
         model = Post
@@ -53,11 +68,16 @@ class PostForm(forms.ModelForm):
 
 
 class RefugeForm(forms.ModelForm):
-    name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nombre'}))
-    phone = forms.IntegerField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Teléfono'}))
-    location = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Dirección'}))
-    city = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ciudad'}))
-    state = forms.ChoiceField(widget=forms.Select(attrs={'class': 'form-control'}), choices=STATES, label='Estado')
+    name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nombre',
+                                                         'ng-model': 'refuge.name'}))
+    phone = forms.IntegerField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Teléfono',
+                                                             'ng-model': 'refuge.phone'}))
+    location = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Dirección',
+                                                            'ng-model': 'refuge.location'}))
+    city = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ciudad',
+                                                         'ng-model': 'refuge.city'}))
+    state = forms.ChoiceField(widget=forms.Select(attrs={'class': 'form-control', 'ng-model': 'refuge.state'}),
+                              choices=STATES, label='Estado')
 
     class Meta:
         model = Refuge

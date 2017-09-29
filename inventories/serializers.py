@@ -10,11 +10,20 @@ class NeedCreateSerializer(ModelSerializer):
 
 
 class PostCreateSerializer(ModelSerializer):
-    needs = NeedCreateSerializer()
+    needs = NeedCreateSerializer(many=True)
 
     class Meta:
         model = Post
-        fields = ['description', 'enable_beds', 'needs']
+        fields = ('description', 'enable_beds', 'needs')
+
+    def create(self, validated_data):
+        need_data = validated_data.pop('needs')
+        post = Post.objects.create(**validated_data)
+
+        for data in need_data:
+            Need.objects.create(post=post, **data)
+
+        return post
 
 
 class RefugeCreateSerializer(ModelSerializer):
@@ -22,4 +31,16 @@ class RefugeCreateSerializer(ModelSerializer):
 
     class Meta:
         model = Refuge
-        fields = ['name', 'phone', 'location', 'city', 'state', 'post']
+        fields = ('name', 'phone', 'location', 'city', 'state', 'post', 'user')
+
+    def create(self, validated_data):
+        post_data = validated_data.pop('post')
+        refuge = Refuge.objects.create(**validated_data)
+
+        need_data = post_data.pop('needs')
+        post = Post.objects.create(refuge=refuge, **post_data)
+
+        for data in need_data:
+            Need.objects.create(post=post, **data)
+
+        return refuge
